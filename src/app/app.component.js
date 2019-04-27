@@ -5,37 +5,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
+var MEMBERS = [
+    { id: 11, name: '武山 岳大' },
+    { id: 12, name: '駒倉 光紀' },
+    { id: 13, name: '長田 研太' },
+    { id: 14, name: '高藤 友梨香' },
+    { id: 15, name: '浜崎 貴之' },
+    { id: 16, name: '緑川 睦' },
+    { id: 17, name: '森谷 怜奈' },
+    { id: 18, name: '大槻 祐大' },
+    { id: 19, name: '岩野 紀之' },
+    { id: 20, name: '佐々木 小次郎' },
+];
 var AppComponent = (function () {
-    function AppComponent(sanitizer) {
-        this.sanitizer = sanitizer;
-        this.clazz = true;
-        this.len = 3;
-        this.url = 'https://www.wsmeguro.jp/wp/';
-        //name = 'Meguro';
-        this.member = { name: 'Yasunobu Masuda', sex: 'male' };
-        this.image = 'https://www.friendsoftheforest.tokyo/wp/wp-content/uploads/2019/03/IMGP2316.jpg';
-        this.msg = "<script>window.alert(\"Welcome\");</script>\n    <div>come on</div>\n    <input type=\"button\" onclick=\"alert('ok')\" value=\"\u30AF\u30EA\u30C3\u30AF\" />";
-        this.safeMsg = sanitizer.bypassSecurityTrustHtml(this.msg);
-        this.safeUrl = sanitizer.bypassSecurityTrustResourceUrl(this.url);
+    function AppComponent() {
+        this.title = '自社社員名簿';
+        this.members = MEMBERS;
     }
-    AppComponent.prototype.show = function (e) {
-        this.msgNow = new Date().toLocaleString();
-        console.log(e);
+    AppComponent.prototype.onSelect = function (member) {
+        this.selectedMember = member;
     };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "<h1>Hello {{member.name}}</h1>\n    <input type=\"button\" (click)=\"show(event)\" value=\"\u73FE\u5728\u6642\u523B\" />{{msgNow}}\n    <div class=\"line back\" [class.fore]=\"clazz\" [innerHTML]='safeMsg'></div>\n    <table border=\"1\">\n      <tr><td [attr.rowspan]=\"len\">Conbine</td><td>1</td></tr>\n      <tr><td>2</td></tr>\n      <tr><td>3</td></tr>\n    </table>\n    <iframe [src]=\"safeUrl\"></iframe>",
-        styles: ["\n    .line {border: solid 1px #f00;}\n    .back {background-color: #0ff}\n    .fore {color: red;}"]
-    }),
-    __metadata("design:paramtypes", [platform_browser_1.DomSanitizer])
+        template: "\n    <h1>{{title}}</h1>\n    <h2>\u793E\u54E1\u4E00\u89A7</h2>\n    <ul class=\"members\">\n      <li *ngFor=\"let member of members\"\n        (click)=\"onSelect(member)\"\n        [class.selected]=\"member === selectedMember\">\n        <span class=\"badge\">{{member.id}}</span> {{member.name}}\n      </li>\n    </ul>\n    <member-detail [member]=\"selectedMember\"></member-detail>\n  ",
+        styles: ["\n    .selected {\n      background-color: #CFD8DC !important;\n      color: white;\n    }\n    .members {\n      margin: 0 0 2em 0;\n      list-style-type: none;\n      padding: 0;\n      width: 15em;\n    }\n    .members li {\n      cursor: pointer;\n      position: relative;\n      left: 0;\n      background-color: #EEE;\n      margin: .5em;\n      padding: .3em 0;\n      height: 1.6em;\n      border-radius: 4px;\n    }\n    .members li.selected:hover {\n      background-color: #BBD8DC !important;\n      color: white;\n    }\n    .members li:hover {\n      color: #607D8B;\n      background-color: #DDD;\n      left: .1em;\n    }\n    .members .text {\n      position: relative;\n      top: -3px;\n    }\n    .members .badge {\n      display: inline-block;\n      font-size: small;\n      color: white;\n      padding: 0.8em 0.7em 0 0.7em;\n      background-color: #607D8B;\n      line-height: 1em;\n      position: relative;\n      left: -1px;\n      top: -4px;\n      height: 1.8em;\n      margin-right: .8em;\n      border-radius: 4px 0 0 4px;\n    }\n  "]
+    })
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
